@@ -4,7 +4,7 @@
       <md-card>
         <md-card-header>
           <div class="md-title"
-               v-text="'Create Questions'" />
+               v-text="'Create Question'" />
         </md-card-header>
 
         <md-card-content>
@@ -28,7 +28,15 @@
           <md-input-container v-for="(poll, pollIndex) in answer.options" :key="pollIndex">
             <label v-text="`Option ${pollIndex + 1}`"/>
             <md-input v-model="poll.answer"
+                      required
                       @change="addPoll(poll)" />
+
+            <md-button class="md-icon-button"
+                       @click="poll.valid = !poll.valid">
+              <md-icon v-if="poll.valid">check_circle</md-icon>
+              <md-icon v-else>check</md-icon>
+            </md-button>
+
             <md-button class="md-icon-button"
                        v-if="answer.options.length > 1"
                        @click="removePoll(pollIndex)" >
@@ -53,7 +61,8 @@ const Answer = {
   multiple: true,
   options: [
     {
-      answer: null
+      answer: null,
+      valid: false
     }
   ],
   valid: [
@@ -75,7 +84,7 @@ export default {
     addPoll (poll) {
       let count = this.answer.options.length
       if (poll !== null && count > 0 && this.answer.options[count - 1].answer !== null) {
-        this.answer.options.push({ answer: null })
+        this.answer.options.push({ answer: null, valid: false })
       }
     },
     removePoll (index) {

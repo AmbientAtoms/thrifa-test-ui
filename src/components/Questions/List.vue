@@ -46,6 +46,7 @@ export default {
   name: 'Questions_List',
   data () {
     return {
+      answers: [],
       answer: {
         id: null,
         options: []
@@ -57,6 +58,15 @@ export default {
     questions () {
       return this.$store.state.questions.list
     }
+  },
+  created () {
+    this.answers = this.questions.options.map(function (poll) {
+      let object = {
+        id: poll.id,
+        value: false
+      }
+      return object
+    })
   },
   methods: {
     toEdit (item, index) {
