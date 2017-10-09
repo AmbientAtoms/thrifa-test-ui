@@ -57,17 +57,9 @@ export default {
   created () {
     this.answers = this.questions.map(function (question) {
       let polls = question.options.map(function (poll) {
-        let object = {
-          id: poll.id,
-          value: false
-        }
-        return object
+        return { id: poll.id, value: false }
       })
-      let object = {
-        id: question.id,
-        options: polls
-      }
-      return object
+      return { id: question.id, options: polls }
     })
   },
   methods: {

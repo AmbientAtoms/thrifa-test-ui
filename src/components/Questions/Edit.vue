@@ -23,7 +23,7 @@
                      name="my-test1"
                      required>
             Multiple
-            </md-switch>
+          </md-switch>
           <h3>Options:</h3>
           <md-input-container v-for="(poll, pollIndex) in answer.options" :key="pollIndex">
             <label v-text="`Option ${pollIndex + 1}`"/>
@@ -35,12 +35,14 @@
                        @click="poll.valid = !poll.valid">
               <md-icon v-if="poll.valid">check_circle</md-icon>
               <md-icon v-else>check</md-icon>
+              <md-tooltip md-direction="top">Set as true answer</md-tooltip>
             </md-button>
 
             <md-button class="md-icon-button"
                        v-if="answer.options.length > 1"
                        @click="removePoll(pollIndex)" >
               <md-icon>clear</md-icon>
+              <md-tooltip md-direction="top">Delete answer</md-tooltip>
             </md-button>
           </md-input-container>
         </md-card-content>
@@ -83,7 +85,8 @@ export default {
   methods: {
     addPoll (poll) {
       let count = this.answer.options.length
-      if (poll !== null && count > 0 && this.answer.options[count - 1].answer !== null) {
+      if (poll !== null && count > 0 &&
+          this.answer.options[count - 1].answer !== null) {
         this.answer.options.push({ answer: null, valid: false })
       }
     },
