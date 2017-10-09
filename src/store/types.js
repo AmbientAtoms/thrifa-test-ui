@@ -1,0 +1,3 @@
+export const SET_LOADING = 'SET_LOADING'
+export const ADD_QUESTION = 'ADD_QUESTION'
+export const SET_QUESTIONS = 'SET_QUESTIONS'
