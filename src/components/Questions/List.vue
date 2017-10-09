@@ -10,8 +10,8 @@
         </md-card-header>
 
         <md-card-content>
-          <md-list class="md-dense" v-if="answer.id === item.id">
-            <md-list-item v-for="(poll, pollIndex) in answer.options" :key="pollIndex">
+          <md-list class="md-dense">
+            <md-list-item v-for="(poll, pollIndex) in answers[index].options" :key="pollIndex">
               <md-checkbox name="answer"
                            v-model="poll.value"
                            v-if="item.multiple">
@@ -19,9 +19,9 @@
               </md-checkbox>
               <md-radio name="'sdfafdfsd'"
                         v-model="poll.value"
-                        md-value="poll.value"
+                        md-value="true"
                         v-else
-                        @change="clearRadio(pollIndex)">
+                        @change="clearRadio(index, pollIndex)">
                 {{ item.options[pollIndex].answer }}
               </md-radio>
             </md-list-item>
@@ -30,11 +30,7 @@
 
         <md-card-actions>
           <md-button v-text="'Submit'"
-                     v-if="answer.id === item.id"
                      @click="submit" />
-          <md-button v-text="'Answer'"
-                     v-else
-                     @click="toEdit(item, index)" />
         </md-card-actions>
       </md-card>
     </md-layout>
@@ -50,8 +46,7 @@ export default {
       answer: {
         id: null,
         options: []
-      },
-      editQuestion: null
+      }
     }
   },
   computed: {
@@ -60,30 +55,26 @@ export default {
     }
   },
   created () {
-    this.answers = this.questions.options.map(function (poll) {
-      let object = {
-        id: poll.id,
-        value: false
-      }
-      return object
-    })
-  },
-  methods: {
-    toEdit (item, index) {
-      this.answer.id = item.id
-      this.answer.options = item.options.map(function (poll) {
+    this.answers = this.questions.map(function (question) {
+      let polls = question.options.map(function (poll) {
         let object = {
           id: poll.id,
           value: false
         }
         return object
       })
-      this.editQuestion = index
-    },
-    clearRadio (index) {
-      for (let i = 0; i < this.answer.options.length; i++) {
-        if (i !== index) {
-          this.answer.options[i].value = false
+      let object = {
+        id: question.id,
+        options: polls
+      }
+      return object
+    })
+  },
+  methods: {
+    clearRadio (index, poll) {
+      for (let i = 0; i < this.answers[index].options.length; i++) {
+        if (i !== poll) {
+          this.answers[index].options[i].value = false
         }
       }
     },
