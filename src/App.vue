@@ -34,6 +34,11 @@ export default {
 </script>
 
 <style>
+.md-toolbar {
+  position: fixed;
+  width: 100%;
+  z-index: 200;
+}
 .md-toolbar a .md-button {
   color: #bbb;
 }
@@ -46,8 +51,16 @@ export default {
   align-items: center;
   justify-content: center;
 }
+.width {
+  width: 100%;
+  padding: 70px 0;
+}
 .md-card {
   width: 400px;
   max-width: 100%;
+  margin: 10px auto;
+}
+.md-switch:before {
+  cursor: pointer;
 }
 </style>
