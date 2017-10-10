@@ -6,7 +6,7 @@
                 md-label="Sign up">
           <md-input-container :class="{'md-input-invalid': errors.has('email')}">
             <label v-text="'Email'" />
-            <md-input v-model="user.email"
+            <md-input v-model="newUser.email"
                       v-validate="'required|email'"
                       data-vv-name="email"
                       :has-error="errors.has('email')" />
@@ -14,7 +14,7 @@
           </md-input-container>
           <md-input-container :class="{'md-input-invalid': errors.has('username')}">
             <label>Username</label>
-            <md-input v-model="user.username"
+            <md-input v-model="newUser.username"
                       v-validate="'required|min:2'"
                       data-vv-name="username"
                       :has-error="errors.has('username')" />
@@ -27,7 +27,7 @@
                       v-validate="'required|min:5'"
                       data-vv-name="password"
                       :has-error="errors.has('password')"
-                      v-model="user.password" />
+                      v-model="newUser.password" />
             <span class="md-error">{{errors.first('password')}}</span>
           </md-input-container>
           <md-card-actions>
