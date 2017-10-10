@@ -1,30 +1,46 @@
 <template>
   <div class="height">
     <md-card>
-      <md-card-header>
-        <div class="md-title">Signup</div>
-      </md-card-header>
+      <md-tabs class="md-transparent">
+        <md-tab md-icon="account_circle"
+                md-label="Sign up">
+          <md-input-container>
+            <label>Email</label>
+            <md-input v-model="user.email" />
+          </md-input-container>
+          <md-input-container>
+            <label>Username</label>
+            <md-input v-model="user.username" />
+          </md-input-container>
+          <md-input-container md-has-password>
+            <label>Password</label>
+            <md-input type="password"
+                      v-model="user.password" />
+          </md-input-container>
+          <md-card-actions>
+            <md-button @click="signup">Signup</md-button>
+          </md-card-actions>
+        </md-tab>
 
-      <md-card-content>
-        <md-input-container>
-          <label>Email</label>
-          <md-input v-model="user.email" />
-        </md-input-container>
-        <md-input-container>
-          <label>Username</label>
-          <md-input v-model="user.username" />
-        </md-input-container>
-        <md-input-container md-has-password>
-          <label>Password</label>
-          <md-input type="password"
-                    v-model="user.password" />
-        </md-input-container>
-      </md-card-content>
+        <md-tab md-icon="exit_to_app"
+                class="md-accent"
+                md-label="Login"
+                :md-options="{new_badge: 3}">
+          <md-input-container>
+            <label>Email</label>
+            <md-input v-model="user.email" />
+          </md-input-container>
+          <md-input-container md-has-password>
+            <label>Password</label>
+            <md-input type="password"
+                      v-model="user.password" />
+          </md-input-container>
 
-      <md-card-actions>
-        <md-button @click="signup">Signup</md-button>
-        <md-button @click="signin">Login</md-button>
-      </md-card-actions>
+          <md-card-actions>
+            <md-button @click="signin">Login</md-button>
+          </md-card-actions>
+        </md-tab>
+      </md-tabs>
     </md-card>
   </div>
 </template>
