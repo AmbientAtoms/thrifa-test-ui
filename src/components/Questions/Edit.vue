@@ -11,7 +11,7 @@
           <md-input-container :class="{'md-input-invalid': errors.has('title')}">
             <label v-text="'Title'" />
             <md-input v-model="answer.title"
-                      v-validate="'required|min:4'"
+                      v-validate="'required|min:2'"
                       data-vv-name="title"
                       :has-error="errors.has('title')"
                       required />
@@ -20,7 +20,7 @@
           <md-input-container :class="{'md-input-invalid': errors.has('subtitle')}">
             <label v-text="'Subtitle'" />
             <md-input v-model="answer.subtitle"
-                      v-validate="'required|min:4'"
+                      v-validate="'required|min:2'"
                       data-vv-name="subtitle"
                       :has-error="errors.has('subtitle')"
                       required />
