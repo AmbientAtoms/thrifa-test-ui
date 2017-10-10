@@ -30,6 +30,8 @@
         </md-card-content>
 
         <md-card-actions>
+          <md-button v-text="'Delete'"
+                     @click="remove(item._id)" />
           <md-button v-text="'Submit'"
                      @click="submit(index)"
                      :disabled="disabled(index)" />
@@ -40,7 +42,7 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 
 export default {
   name: 'Questions_List',
@@ -50,21 +52,17 @@ export default {
     }
   },
   computed: {
-    questions () {
-      return this.$store.state.questions.list
-    },
-    loading () {
-      return this.$store.state.questions.loading
-    },
-    validation () {
-      return this.$store.state.questions.validation
-    }
+    ...mapState({
+      questions: state => state.questions.list,
+      loading: state => state.questions.loading,
+      validation: state => state.questions.validation
+    })
   },
   created () {
     this.updateQuestions()
   },
   methods: {
-    ...mapActions(['getQuestions', 'validateQuestion']),
+    ...mapActions(['getQuestions', 'validateQuestion', 'deleteQuestion']),
     clearRadio (index, poll) {
       for (let i = 0; i < this.answers[index].options.length; i++) {
         if (i !== poll) {
@@ -73,8 +71,10 @@ export default {
       }
     },
     disabled (index) {
-      for (let i in this.answers[index].options) {
-        if (this.answers[index].options[i].value !== false) return false
+      if (this.answers !== null) {
+        for (let i in this.answers[index].options) {
+          if (this.answers[index].options[i].value !== false) return false
+        }
       }
       return true
     },
@@ -98,6 +98,24 @@ export default {
           return { id: question._id, options: polls }
         })
       }
+    },
+    remove (id) {
+      this.deleteQuestion(id)
+    }
+  },
+  watch: {
+    validation: {
+      handler: function (validation) {
+        console.log(this.validation)
+        if (this.validation !== {}) {
+          this.$notify({
+            title: 'Server error',
+            type: 'success',
+            text: 'See console'
+          })
+        }
+      },
+      deep: true
     }
   }
 }

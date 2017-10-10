@@ -24,11 +24,26 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
 export default {
   name: 'app',
   computed: {
-    route () {
-      return this.$route.name
+    ...mapState({
+      errorMessage: state => state.questions.error
+    })
+  },
+  watch: {
+    errorMessage: {
+      handler: function (message) {
+        console.log(this.errorMessage)
+        this.$notify({
+          title: 'Server error',
+          type: 'error',
+          text: 'See console'
+        })
+      },
+      immediate: true,
+      deep: true
     }
   }
 }
