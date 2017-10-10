@@ -18,6 +18,11 @@ export default {
     try {
       const response = await http.post('/questions/', form)
       commit(TYPES.ADD_QUESTION, response.data)
+      this.$notify({
+        title: 'Success',
+        type: 'success',
+        text: 'Question was been created'
+      })
     } catch ({ response }) {
       console.log(response)
     }
@@ -29,6 +34,13 @@ export default {
     try {
       const response = await http.post(`/questions/${form.id}/validation`, form)
       commit(TYPES.VALIDATE_QUESTION, { id: form.id, data: response.data })
+      if (response.date === true) {
+        this.$notify({
+          title: 'Success',
+          type: 'success',
+          text: 'The answer is correct'
+        })
+      }
     } catch ({ response }) {
       console.log(response)
     }

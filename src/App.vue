@@ -18,6 +18,7 @@
                    v-text="'Login'" />
       </router-link>
     </md-toolbar>
+    <notifications md-elevation="8" />
     <router-view />
   </div>
 </template>
@@ -62,5 +63,36 @@ export default {
 }
 .md-switch:before {
   cursor: pointer;
+}
+.notifications {
+  margin-top: 70px;
+  overflow: visible;
+}
+.vue-notification {
+  padding: 10px;
+  margin: 0 5px 5px;
+
+  font-size: 12px;
+  line-height: 14px;
+
+  color: #ffffff;
+  border-left: none;
+  box-shadow: 0 4px 8px rgba(0,0,0,.2);
+}
+.notification-title {
+  font-weight: normal;
+  font-size: 24px;
+  letter-spacing: 0;
+  line-height: 32px;
+}
+
+.vue-notification.error {
+  background: #E54D42;
+  border-left-color: #B82E24;
+}
+
+.vue-notification.success {
+  background: #68CD86;
+  border-left-color: #42A85F;
 }
 </style>

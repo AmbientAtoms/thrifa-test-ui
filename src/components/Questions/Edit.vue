@@ -11,8 +11,8 @@
           <md-input-container :class="{'md-input-invalid': errors.has('title')}">
             <label v-text="'Title'" />
             <md-input v-model="answer.title"
-                      v-validate="'required|between:4,255'"
-                      data-vv-value-path="innerValue" data-vv-name="title"
+                      v-validate="'required|min:4'"
+                      data-vv-name="title"
                       :has-error="errors.has('title')"
                       required />
             <span class="md-error">{{errors.first('title')}}</span>
@@ -20,8 +20,8 @@
           <md-input-container :class="{'md-input-invalid': errors.has('subtitle')}">
             <label v-text="'Subtitle'" />
             <md-input v-model="answer.subtitle"
-                      v-validate="'required|between:4,255'"
-                      data-vv-value-path="innerValue" data-vv-name="subtitle"
+                      v-validate="'required|min:4'"
+                      data-vv-name="subtitle"
                       :has-error="errors.has('subtitle')"
                       required />
             <span class="md-error">{{errors.first('subtitle')}}</span>
@@ -34,12 +34,12 @@
           </md-switch>
           <h3>Options:</h3>
           <md-input-container v-for="(poll, pollIndex) in answer.options" :key="pollIndex"
-                              :class="{'md-input-invalid': errors.has(`option ${pollIndex + 1}`)}">
+                              :class="{'md-input-invalid': errors.has(`option${pollIndex}`)}">
             <label v-text="`Option ${pollIndex + 1}`"/>
             <md-input v-model="poll.answer"
                       v-validate="'required|min:1'"
-                      data-vv-value-path="innerValue" :data-vv-name="`option ${pollIndex + 1}`"
-                      :has-error="errors.has(`option ${pollIndex + 1}`)"
+                      :data-vv-name="`option${pollIndex}`"
+                      :has-error="errors.has(`option${pollIndex}`)"
                       required
                       @change="addPoll(poll)" />
 
@@ -122,6 +122,12 @@ export default {
       this.$validator.validateAll().then((result) => {
         if (result) {
           this.createQuestion(this.answer)
+        } else {
+          this.$notify({
+            title: 'Error',
+            type: 'error',
+            text: 'Check all the fields!'
+          })
         }
       })
     },
