@@ -3,15 +3,20 @@
 import Vue from 'vue'
 import VueMaterial from 'vue-material'
 import Notify from 'vue-notifyjs'
+import VeeValidate from 'vee-validate'
 import { sync } from 'vuex-router-sync'
 
 import 'vue-material/dist/vue-material.css'
+import 'vue-notifyjs/themes/material.css'
 
 import App from './App'
 import router from './router'
 import store from './store'
 
-Vue.use(VueMaterial, Notify)
+Vue.use(VueMaterial)
+// TODO
+Vue.use(Notify)
+Vue.use(VeeValidate)
 Vue.config.productionTip = false
 sync(store, router)
 

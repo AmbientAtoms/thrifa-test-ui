@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "axios": "^0.16.2",
+    "vee-validate": "^2.0.0-rc.18",
     "vue": "^2.4.2",
     "vue-material": "^0.7.5",
     "vue-notifyjs": "^0.2.0",

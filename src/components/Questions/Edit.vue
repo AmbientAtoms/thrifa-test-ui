@@ -8,15 +8,23 @@
         </md-card-header>
 
         <md-card-content>
-          <md-input-container>
+          <md-input-container :class="{'md-input-invalid': errors.has('title')}">
             <label v-text="'Title'" />
             <md-input v-model="answer.title"
+                      v-validate="'required|between:4,255'"
+                      data-vv-value-path="innerValue" data-vv-name="title"
+                      :has-error="errors.has('title')"
                       required />
+            <span class="md-error">{{errors.first('title')}}</span>
           </md-input-container>
-          <md-input-container>
+          <md-input-container :class="{'md-input-invalid': errors.has('subtitle')}">
             <label v-text="'Subtitle'" />
             <md-input v-model="answer.subtitle"
+                      v-validate="'required|between:4,255'"
+                      data-vv-value-path="innerValue" data-vv-name="subtitle"
+                      :has-error="errors.has('subtitle')"
                       required />
+            <span class="md-error">{{errors.first('subtitle')}}</span>
           </md-input-container>
           <md-switch v-model="answer.multiple"
                      id="my-test1"
@@ -25,9 +33,13 @@
             Multiple
           </md-switch>
           <h3>Options:</h3>
-          <md-input-container v-for="(poll, pollIndex) in answer.options" :key="pollIndex">
+          <md-input-container v-for="(poll, pollIndex) in answer.options" :key="pollIndex"
+                              :class="{'md-input-invalid': errors.has(`option ${pollIndex + 1}`)}">
             <label v-text="`Option ${pollIndex + 1}`"/>
             <md-input v-model="poll.answer"
+                      v-validate="'required|min:1'"
+                      data-vv-value-path="innerValue" :data-vv-name="`option ${pollIndex + 1}`"
+                      :has-error="errors.has(`option ${pollIndex + 1}`)"
                       required
                       @change="addPoll(poll)" />
 
@@ -39,11 +51,12 @@
             </md-button>
 
             <md-button class="md-icon-button"
-                       v-if="answer.options.length > 1"
+                       v-if="answer.options.length > 2"
                        @click="removePoll(pollIndex)" >
               <md-icon>clear</md-icon>
               <md-tooltip md-direction="top">Delete answer</md-tooltip>
             </md-button>
+            <span class="md-error">{{errors.first(`option ${pollIndex + 1}`)}}</span>
           </md-input-container>
         </md-card-content>
 
@@ -64,6 +77,10 @@ const Answer = {
   subtitle: null,
   multiple: true,
   options: [
+    {
+      answer: null,
+      valid: false
+    },
     {
       answer: null,
       valid: false
@@ -102,7 +119,16 @@ export default {
       this.answer.options.splice(index, 1)
     },
     submit () {
-      this.createQuestion(this.answer)
+      this.$validator.validateAll().then((result) => {
+        if (result) {
+          this.createQuestion(this.answer)
+        }
+      })
+    },
+    validate () {
+      this.$validator.validateAll().then((result) => {
+        alert(`Validation Result: ${result}`)
+      })
     }
   }
 }
