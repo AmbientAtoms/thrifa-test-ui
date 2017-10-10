@@ -5,16 +5,19 @@ import Login from '@/components/Login/Index'
 import List from '@/components/Questions/List'
 import Edit from '@/components/Questions/Edit'
 
+import authCheck from './authCheck'
+
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   mode: 'history',
   base: __dirname,
   routes: [
     {
       path: '/',
       name: 'List',
-      component: List
+      component: List,
+      meta: { requiresAuth: true }
     },
     {
       path: '/login',
@@ -24,7 +27,12 @@ export default new Router({
     {
       path: '/edit',
       name: 'Edit',
-      component: Edit
+      component: Edit,
+      meta: { requiresAuth: true }
     }
   ]
 })
+
+router.beforeEach(authCheck)
+
+export default router

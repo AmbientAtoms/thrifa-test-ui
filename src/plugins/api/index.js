@@ -13,3 +13,7 @@ export default function install (Vue) {
     }
   })
 }
+
+export function setAuth (auth) {
+  http.defaults.headers.common.Authorization = `Token ${auth.getToken()}`
+}

@@ -5,15 +5,21 @@
           style="flex: 1"
           v-text="'Test app'" />
 
-      <router-link :to="{ name: 'List' }">
-        <md-button v-text="'View'" />
-      </router-link>
+      <div v-if="$route.name !== 'Login'">
+        <router-link :to="{ name: 'List' }">
+          <md-button v-text="'View'" />
+        </router-link>
 
-      <router-link :to="{ name: 'Edit' }">
-        <md-button v-text="'Create'" />
-      </router-link>
+        <router-link :to="{ name: 'Edit' }">
+          <md-button v-text="'Create'" />
+        </router-link>
 
-      <router-link :to="{ name: 'Login' }">
+        <md-button v-text="'Logout'"
+                   @click="logout()" />
+      </div>
+
+      <router-link :to="{ name: 'Login' }"
+                   v-else >
         <md-button class="md-raised"
                    v-text="'Login'" />
       </router-link>
@@ -24,13 +30,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapActions, mapState } from 'vuex'
 export default {
   name: 'app',
   computed: {
     ...mapState({
       errorMessage: state => state.questions.error
     })
+  },
+  methods: {
+    ...mapActions(['logout'])
   },
   watch: {
     errorMessage: {

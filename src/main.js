@@ -25,8 +25,5 @@ new Vue({
   router,
   store,
   template: '<App/>',
-  components: { App },
-  beforeMount () {
-    store.dispatch(store.checkAuth)
-  }
+  components: { App }
 })
