@@ -5,9 +5,9 @@ export default {
     state.loading = loading
   },
   [TYPES.ADD_QUESTION] (state, data) {
-    state.questions.unshift(data)
+    state.list.unshift(data)
   },
   [TYPES.SET_QUESTIONS] (state, data) {
-    state.questions = data
+    state.list = data
   }
 }

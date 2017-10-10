@@ -1,14 +1,11 @@
+import { http } from '@/plugins/api'
 import * as TYPES from '@/store/types'
 
-function timeout () {
-  return new Promise(resolve => setTimeout(resolve, 2000))
-}
-
 export default {
-  async getQuestions ({ commit }, params = {}) {
+  async getQuestions ({ commit }) {
     commit(TYPES.SET_LOADING, true)
     try {
-      const response = await timeout()
+      const response = await http.get('/questions/')
       commit(TYPES.SET_QUESTIONS, response.data)
     } catch ({ response }) {
       console.log(response)
@@ -19,7 +16,7 @@ export default {
   async createQuestion ({ commit }, form) {
     commit(TYPES.SET_LOADING, true)
     try {
-      const response = await timeout()
+      const response = await http.get('/questions/')
       commit(TYPES.ADD_QUESTION, response.data)
     } catch ({ response }) {
       console.log(response)
