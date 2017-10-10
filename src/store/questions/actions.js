@@ -24,11 +24,11 @@ export default {
     commit(TYPES.SET_LOADING, false)
   },
 
-  async validateQuestion ({ commit }, id, form) {
+  async validateQuestion ({ commit }, form) {
     commit(TYPES.SET_LOADING, true)
     try {
-      const response = await http.post(`/questions/${id}/validation`, form)
-      commit(TYPES.VALIDATE_QUESTION, response.data)
+      const response = await http.post(`/questions/${form.id}/validation`, form)
+      commit(TYPES.VALIDATE_QUESTION, { id: form.id, data: response.data })
     } catch ({ response }) {
       console.log(response)
     }

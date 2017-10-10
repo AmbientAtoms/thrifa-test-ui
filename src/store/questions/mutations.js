@@ -9,5 +9,8 @@ export default {
   },
   [TYPES.SET_QUESTIONS] (state, data) {
     state.list = data
+  },
+  [TYPES.VALIDATE_QUESTION] (state, { id, data }) {
+    state.validation[id] = data
   }
 }
