@@ -16,7 +16,7 @@ export default {
   async createQuestion ({ commit }, form) {
     commit(TYPES.SET_LOADING, true)
     try {
-      const response = await http.get('/questions/')
+      const response = await http.post('/questions/', form)
       commit(TYPES.ADD_QUESTION, response.data)
     } catch ({ response }) {
       console.log(response)

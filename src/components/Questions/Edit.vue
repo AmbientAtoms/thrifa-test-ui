@@ -57,6 +57,8 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 const Answer = {
   title: null,
   subtitle: null,
@@ -82,7 +84,13 @@ export default {
   created () {
     this.answer = Answer
   },
+  computed: {
+    loading () {
+      return this.$store.state.questions.loading
+    }
+  },
   methods: {
+    ...mapActions(['createQuestion']),
     addPoll (poll) {
       let count = this.answer.options.length
       if (poll !== null && count > 0 &&
@@ -94,8 +102,7 @@ export default {
       this.answer.options.splice(index, 1)
     },
     submit () {
-      this.answer.id = null
-      this.answer.options = []
+      this.createQuestion(this.answer)
     }
   }
 }
