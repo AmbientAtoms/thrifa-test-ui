@@ -22,6 +22,7 @@ export default {
       commit(TYPES.SET_ERROR, response)
     }
     commit(TYPES.SET_LOADING, false)
+    return true
   },
 
   async deleteQuestion ({ commit }, id) {
@@ -37,12 +38,14 @@ export default {
 
   async validateQuestion ({ commit }, form) {
     commit(TYPES.SET_LOADING, true)
+    let response
     try {
-      const response = await http.post(`/questions/${form.id}/validation`, form)
+      response = await http.post(`/questions/${form.id}/validation`, form)
       commit(TYPES.VALIDATE_QUESTION, { id: form.id, data: response.data })
     } catch ({ response }) {
       commit(TYPES.SET_ERROR, response)
     }
     commit(TYPES.SET_LOADING, false)
+    return response.data
   }
 }

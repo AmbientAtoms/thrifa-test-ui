@@ -1,8 +1,6 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
-import Home from '@/components/Home'
-
 import Login from '@/components/Login/Index'
 import List from '@/components/Questions/List'
 import Edit from '@/components/Questions/Edit'
@@ -15,18 +13,13 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home
+      name: 'List',
+      component: List
     },
     {
       path: '/login',
       name: 'Login',
       component: Login
-    },
-    {
-      path: '/list',
-      name: 'List',
-      component: List
     },
     {
       path: '/edit',

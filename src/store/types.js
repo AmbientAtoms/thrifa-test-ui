@@ -5,3 +5,7 @@ export const VALIDATE_QUESTION = 'VALIDATE_QUESTION'
 export const DELETE_QUESTION = 'DELETE_QUESTION'
 
 export const SET_ERROR = 'SET_ERROR'
+
+export const CHECK_AUTH = 'CHECK_AUTH'
+export const SET_AUTH = 'SET_AUTH'
+export const PURGE_AUTH = 'PURGE_AUTH'

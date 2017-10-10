@@ -35,7 +35,6 @@ export default {
   watch: {
     errorMessage: {
       handler: function (message) {
-        console.log(this.errorMessage)
         this.$notify({
           title: 'Server error',
           type: 'error',

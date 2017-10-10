@@ -78,7 +78,7 @@ export default {
       }
       return true
     },
-    submit (index) {
+    async submit (index) {
       let form = {
         id: this.answers[index].id,
         options: []
@@ -86,7 +86,21 @@ export default {
       this.answers[index].options.forEach(function (poll) {
         if (poll.value) form.options.push(poll.id)
       })
-      this.validateQuestion(form)
+      const valid = await this.validateQuestion(form)
+      console.log(valid)
+      if (valid === true) {
+        this.$notify({
+          title: 'Success',
+          type: 'success',
+          text: 'Right answer'
+        })
+      } else {
+        this.$notify({
+          title: 'Error',
+          type: 'warn',
+          text: 'Wrong answer'
+        })
+      }
     },
     async updateQuestions () {
       await this.getQuestions()
@@ -99,23 +113,13 @@ export default {
         })
       }
     },
-    remove (id) {
-      this.deleteQuestion(id)
-    }
-  },
-  watch: {
-    validation: {
-      handler: function (validation) {
-        console.log(this.validation)
-        if (this.validation !== {}) {
-          this.$notify({
-            title: 'Server error',
-            type: 'success',
-            text: 'See console'
-          })
-        }
-      },
-      deep: true
+    async remove (id) {
+      await this.deleteQuestion(id)
+      this.$notify({
+        title: 'Deleted',
+        type: 'warn',
+        text: 'Question has been deleted'
+      })
     }
   }
 }

@@ -118,10 +118,26 @@ export default {
     removePoll (index) {
       this.answer.options.splice(index, 1)
     },
+    async create () {
+      const submit = await this.createQuestion(this.answer)
+      if (submit === true) {
+        this.$notify({
+          title: 'Success',
+          type: 'success',
+          text: 'Question has been created'
+        })
+      } else {
+        this.$notify({
+          title: 'Wrong',
+          type: 'error',
+          text: 'Something wrong (see console)'
+        })
+      }
+    },
     submit () {
       this.$validator.validateAll().then((result) => {
         if (result) {
-          this.createQuestion(this.answer)
+          this.create()
         } else {
           this.$notify({
             title: 'Error',
