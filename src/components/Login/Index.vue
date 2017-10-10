@@ -18,7 +18,6 @@
           <label>Password</label>
           <md-input type="password"
                     v-model="user.password" />
-          <md-input type="password"></md-input>
         </md-input-container>
       </md-card-content>
 

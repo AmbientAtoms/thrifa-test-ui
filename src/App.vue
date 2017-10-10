@@ -44,10 +44,17 @@ export default {
   watch: {
     errorMessage: {
       handler: function (message) {
+        let error = null
+        if (message && message.data) {
+          Object.keys(message.data.errors).forEach(function (wrong) {
+            error = wrong + ': ' + message.data.errors[wrong] + '\n'
+          })
+        }
+        console.log(message)
         this.$notify({
-          title: 'Server error',
+          title: 'Error',
           type: 'error',
-          text: 'See console'
+          text: error
         })
       },
       immediate: true,
