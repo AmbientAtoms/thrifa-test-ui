@@ -1,4 +1,5 @@
 export default {
   loading: false,
-  list: null
+  list: null,
+  validation: null
 }
