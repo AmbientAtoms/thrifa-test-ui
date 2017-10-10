@@ -3,7 +3,9 @@
     <md-layout md-column md-gutter
                v-for="(item, index) in questions"
                :key="index">
-      <md-card v-if="!loading" :class="validation[item._id] === false ? 'md-warn' : ''">
+      <md-card v-if="!loading"
+               :class="validation[item._id] === false ? 'warn' : '' ||
+                       validation[item._id] === true ? 'success' : ''">
         <md-card-header>
           <div class="md-title"
                v-text="item.title" />

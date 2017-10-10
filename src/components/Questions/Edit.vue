@@ -29,11 +29,13 @@
           <md-switch v-model="answer.multiple"
                      id="my-test1"
                      name="my-test1"
+                     @change="clearMultiple()"
                      required>
             Multiple
           </md-switch>
           <h3>Options:</h3>
-          <md-input-container v-for="(poll, pollIndex) in answer.options" :key="pollIndex"
+          <md-input-container v-for="(poll, pollIndex) in answer.options"
+                              :key="pollIndex"
                               :class="{'md-input-invalid': errors.has(`option${pollIndex}`)}">
             <label v-text="`Option ${pollIndex + 1}`"/>
             <md-input v-model="poll.answer"
@@ -44,7 +46,7 @@
                       @change="addPoll(poll)" />
 
             <md-button class="md-icon-button"
-                       @click="poll.valid = !poll.valid">
+                       @click="poll.valid = !poll.valid; clearMultiple(poll)">
               <md-icon v-if="poll.valid">check_circle</md-icon>
               <md-icon v-else>check</md-icon>
               <md-tooltip md-direction="top">Set as true answer</md-tooltip>
@@ -151,6 +153,13 @@ export default {
       this.$validator.validateAll().then((result) => {
         alert(`Validation Result: ${result}`)
       })
+    },
+    clearMultiple (ind) {
+      if (this.answer.multiple === false) {
+        this.answer.options.forEach(function (poll, index) {
+          if (ind !== poll) poll.valid = false
+        })
+      }
     }
   }
 }

@@ -91,6 +91,12 @@ export default {
   max-width: 100%;
   margin: 10px auto;
 }
+.md-card.warn {
+  border-top: 6px solid #e91e63;
+}
+.md-card.success {
+  border-top: 6px solid #4caf50;
+}
 .md-switch:before {
   cursor: pointer;
 }
