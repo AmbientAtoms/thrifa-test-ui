@@ -128,6 +128,7 @@ export default {
           type: 'success',
           text: 'Question has been created'
         })
+        this.answer = Answer
       } else {
         this.$notify({
           title: 'Wrong',
